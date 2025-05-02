@@ -1,0 +1,109 @@
+.about-container {
+    padding: 100px 20px 40px; /* Increased top padding to account for navbar */
+    max-width: 960px;
+    margin: auto;
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    color: #333;
+  }
+  
+  .about-hero {
+    background-color: #f0f8ff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  .about-hero h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #0a66c2;
+  }
+  
+  .about-hero p {
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .about-section {
+    margin-bottom: 30px;
+  }
+  
+  .about-section h2 {
+    font-size: 1.5rem;
+    color: #0a66c2;
+    margin-bottom: 10px;
+  }
+  
+  .about-section p,
+  .about-section ul {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+  
+  .about-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .tech-list span {
+    background-color: #e0f2ff;
+    color: #0a66c2;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  .about-footer {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #777;
+  }
+
+/* Dark mode overrides for About page */
+.dark-mode .about-container {
+  color: #f0f0f0;
+}
+
+.dark-mode .about-hero {
+  background-color: #2d2d2d;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .about-hero h1 {
+  color: #4f8fda;
+}
+
+.dark-mode .about-hero p {
+  color: #cccccc;
+}
+
+.dark-mode .about-section h2 {
+  color: #4f8fda;
+}
+
+.dark-mode .about-section p,
+.dark-mode .about-section ul {
+  color: #cccccc;
+}
+
+.dark-mode .tech-list span {
+  background-color: #3a3a3a;
+  color: #4f8fda;
+}
+
+.dark-mode .about-footer {
+  color: #999;
+}
+  
