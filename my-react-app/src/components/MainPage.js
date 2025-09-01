@@ -1,7 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js';
 import './mainpage.css'; // Ensure this file exists in the same folder
+
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const MainPage = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -13,6 +35,9 @@ const MainPage = () => {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  
+  // Reference to the results section for scrolling
+  const resultsRef = useRef(null);
 
   const handleChange = (e) => {
     setInputs({
@@ -46,6 +71,13 @@ const MainPage = () => {
     }
     setLoading(false);
   };
+  
+  // Effect to scroll to results when they appear
+  useEffect(() => {
+    if (result && resultsRef.current) {
+      resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [result]);
 
   return (
     <div className="main-page">
@@ -59,7 +91,7 @@ const MainPage = () => {
           <form onSubmit={handlePredict} className="prediction-form">
             <div className="input-group">
               <label htmlFor="casting_temp">Casting Temperature (°C)</label>
-              <div className="input-wrapper">
+              <div className="input-wrapper" data-tooltip="Recommended range: 650-750°C">
                 <input
                   type="number"
                   id="casting_temp"
@@ -75,7 +107,7 @@ const MainPage = () => {
 
             <div className="input-group">
               <label htmlFor="rolling_speed">Rolling Speed (m/min)</label>
-              <div className="input-wrapper">
+              <div className="input-wrapper" data-tooltip="Recommended range: 10-20 m/min">
                 <input
                   type="number"
                   id="rolling_speed"
@@ -91,7 +123,7 @@ const MainPage = () => {
 
             <div className="input-group">
               <label htmlFor="cooling_rate">Cooling Rate (°C/s)</label>
-              <div className="input-wrapper">
+              <div className="input-wrapper" data-tooltip="Recommended range: 1-10 °C/s">
                 <input
                   type="number"
                   id="cooling_rate"
@@ -130,7 +162,7 @@ const MainPage = () => {
         </div>
 
         {result && (
-          <div className="results-card">
+          <div className="results-card" ref={resultsRef}>
             <div className="results-header">
               <h3>Prediction Results</h3>
               <p className="results-subtitle">Based on your input parameters</p>
@@ -157,6 +189,115 @@ const MainPage = () => {
                   {result.conductivity} <span className="result-unit">IACS</span>
                 </div>
               </div>
+            </div>
+            
+            <div className="results-chart-container">
+              <h4>Results Visualization</h4>
+              <Line
+                data={{
+                  labels: ['Ultimate Tensile Strength (MPa)', 'Elongation (%)', 'Conductivity (IACS)'],
+                  datasets: [
+                    {
+                      label: 'Predicted Values',
+                      data: [result.uts, result.elongation, result.conductivity],
+                      backgroundColor: 'rgba(10, 102, 194, 0.05)',
+                      borderColor: 'rgba(10, 102, 194, 1)',
+                      pointBackgroundColor: 'rgba(10, 102, 194, 1)',
+                      pointBorderColor: '#ffffff',
+                      pointRadius: 8,
+                      pointHoverRadius: 10,
+                      pointBorderWidth: 2,
+                      tension: 0.4,
+                      borderWidth: 3,
+                      fill: true
+                    }
+                  ]
+                }}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: 'bottom',
+                      labels: {
+                        padding: 20,
+                        color: 'var(--text-color)',
+                        font: {
+                          size: 14,
+                          weight: '500'
+                        },
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                      }
+                    },
+                    title: {
+                      display: false
+                    },
+                    tooltip: {
+                      backgroundColor: 'var(--card-bg)',
+                      titleColor: 'var(--text-color)',
+                      bodyColor: 'var(--text-color)',
+                      borderColor: 'var(--primary-color)',
+                      borderWidth: 1,
+                      padding: 12,
+                      displayColors: true,
+                      titleFont: {
+                        size: 14,
+                        weight: '600'
+                      },
+                      bodyFont: {
+                        size: 13
+                      },
+                      callbacks: {
+                        label: function(context) {
+                          let label = context.dataset.label || '';
+                          if (label) {
+                            label += ': ';
+                          }
+                          if (context.parsed.y !== null) {
+                            label += context.parsed.y.toFixed(2);
+                          }
+                          return label;
+                        }
+                      }
+                    }
+                  },
+                  scales: {
+                    x: {
+                      grid: {
+                        color: 'rgba(0, 0, 0, 0.05)',
+                        drawBorder: false
+                      },
+                      ticks: {
+                        color: 'var(--text-color)',
+                        font: {
+                          size: 12,
+                          weight: '500'
+                        },
+                        padding: 10
+                      }
+                    },
+                    y: {
+                      grid: {
+                        color: 'rgba(0, 0, 0, 0.05)',
+                        drawBorder: false
+                      },
+                      ticks: {
+                        color: 'var(--text-color)',
+                        font: {
+                          size: 12,
+                          weight: '500'
+                        },
+                        padding: 10,
+                        callback: function(value) {
+                          return value.toFixed(2);
+                        }
+                      },
+                      beginAtZero: true
+                    }
+                  }
+                }}
+              />
             </div>
           </div>
         )}

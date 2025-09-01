@@ -1,9 +1,13 @@
 /* FeaturesPage.css */
 .features-container {
   min-height: 100vh;
-  background-color: var(--background-light, #f9fafb);
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('C:\Users\Paras Mehta\OneDrive\Desktop\1723\my-react-app\public\bg.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   padding: 80px 24px;
   font-family: 'Segoe UI', 'Roboto', sans-serif;
+  position: relative;
 }
 
 .features-header {
@@ -15,14 +19,16 @@
 .features-title {
   font-size: 2.5rem;
   font-weight: 800;
-  color: var(--primary-dark, #084c8e);
+  color: #ffffff;
   margin-bottom: 16px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .features-subtitle {
   font-size: 1.1rem;
-  color: var(--text-light, #666);
+  color: #e0e0e0;
   line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .features-grid {
@@ -34,20 +40,22 @@
 }
 
 .feature-card {
-  background: white;
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   border-top: 4px solid var(--primary-color, #0a66c2);
   padding: 30px;
+  backdrop-filter: blur(5px);
 }
 
 .feature-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .feature-icon {

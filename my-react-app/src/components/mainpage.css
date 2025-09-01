@@ -29,11 +29,31 @@
     font-family: 'Segoe UI', 'Roboto', sans-serif;
     color: var(--text-color);
     min-height: 100vh;
-    background-color: var(--background-light);
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    background-image: url('C:\Users\Paras Mehta\OneDrive\Desktop\1723\my-react-app\public\C.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  .main-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+  }
+
+  .main-page > * {
+    position: relative;
+    z-index: 2;
   }
   
   /* Prediction Container */
@@ -100,7 +120,7 @@
     position: relative;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
   }
   
   .input-wrapper input {
@@ -131,6 +151,61 @@
     color: var(--text-light);
     font-size: 0.9rem;
     pointer-events: none;
+  }
+  
+  /* Tooltip styles */
+  .input-wrapper {
+    position: relative;
+  }
+  
+  .input-wrapper::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-dark);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .input-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--primary-dark) transparent transparent transparent;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 10;
+  }
+  
+  .input-wrapper:hover::after,
+  .input-wrapper:hover::before {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Dark mode tooltip adjustments */
+  .dark-mode .input-wrapper::after {
+    background-color: var(--primary-light);
+    color: var(--text-color);
+  }
+  
+  .dark-mode .input-wrapper::before {
+    border-color: var(--primary-light) transparent transparent transparent;
   }
   
   /* Dark mode specific input styling */
@@ -276,6 +351,67 @@
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+  
+  /* Chart Container Styles */
+  .results-chart-container {
+    margin-top: 30px;
+    padding: 30px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.8s ease;
+    animation-delay: 0.3s;
+    width: 100%;
+    height: 450px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.05));
+    border-radius: 12px;
+  }
+  
+  .dark-mode .results-chart-container {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  }
+  
+  .results-chart-container h4 {
+    margin: 0 0 25px 0;
+    color: var(--primary-dark);
+    font-size: 1.3rem;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Make sure the chart canvas is responsive */
+  .results-chart-container canvas {
+    max-width: 100%;
+    height: 100% !important;
+    width: 100% !important;
+    margin: 0 auto;
+    backdrop-filter: blur(5px);
+  }
+  
+  /* Responsive adjustments for chart */
+  @media (max-width: 768px) {
+    .results-chart-container {
+      height: 350px;
+      padding: 25px;
+    }
+    
+    .results-chart-container h4 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .results-chart-container {
+      height: 300px;
+      padding: 20px;
+    }
+    
+    .results-chart-container h4 {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
     }
   }
   

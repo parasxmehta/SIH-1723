@@ -84,6 +84,7 @@ const Navbar = () => {
               )}
               <div className="auth-buttons">
                 <Link to="/main" className="dashboard-button">Dashboard</Link>
+                <Link to="/report" className="dashboard-button">Download Report</Link>
                 <button
                   className="logout-button"
                   onClick={() => logout({ returnTo: window.location.origin })}

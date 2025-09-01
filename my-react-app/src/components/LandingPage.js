@@ -22,13 +22,16 @@ const LandingPage = () => {
       {/* Hero Section */}
       <div className="hero-section">
         <div className="hero-content">
-          <h1>Wire Rod Predictor</h1>
+          <h1>Wire Rod Predictor<br /></h1>
           <p className="hero-subtitle">
-          "Revolutionize aluminum wire rod production with Intelligent AI and Machine Learning for monitoring, predicting, and fine-tuning key parameters for unmatched quality and efficiency."
+          "Revolutionize aluminum wire rod production with Intelligent Al and Machine Learning for monitoring, predicting, and fine-tuning key parameters for unmatched quality and efficiency."
           </p>
           <button className="cta-button" onClick={handleGetStarted}>
             Get Started
           </button>
+        </div>
+        <div className="hero-image">
+          <img src="/final.png" alt="EliteBook Laptop" />
         </div>
       </div>
 
@@ -46,7 +49,7 @@ const LandingPage = () => {
                 <path d="M40 50H60" stroke="white" strokeWidth="3"/>
               </svg>
             </div>
-            AGGLOMERATION
+            ALUMINIUM INGOT PROCUREMENT
           </button>
           <button className="process-button">
             <div className="process-button-icon">
@@ -57,7 +60,7 @@ const LandingPage = () => {
                 <path d="M30 70C30 70 40 60 50 70C60 80 70 70 70 70" stroke="white" strokeWidth="3" fill="none"/>
               </svg>
             </div>
-            MAKING
+            MELTING
           </button>
           <button className="process-button">
             <div className="process-button-icon">
@@ -66,7 +69,7 @@ const LandingPage = () => {
                 <path d="M30 70C30 70 50 70 50 50C50 30 70 30 70 30" stroke="white" strokeWidth="3" fill="none"/>
               </svg>
             </div>
-            ALLOY MAKING
+            HOLDING
           </button>
           <button className="process-button">
             <div className="process-button-icon">
@@ -81,7 +84,7 @@ const LandingPage = () => {
                 <circle cx="70" cy="60" r="5" stroke="white" strokeWidth="3" fill="white"/>
               </svg>
             </div>
-            CONTINUOUS CASTING
+            CHEMICAL COMPOSITION ANALYSIS
           </button>
           <button className="process-button">
             <div className="process-button-icon">
@@ -93,7 +96,7 @@ const LandingPage = () => {
                 <circle cx="50" cy="50" r="10" stroke="white" strokeWidth="2" fill="none"/>
               </svg>
             </div>
-            HOT ROLLING LONG
+            CASTING
           </button>
           <button className="process-button">
             <div className="process-button-icon">
@@ -103,7 +106,7 @@ const LandingPage = () => {
                 <circle cx="50" cy="50" r="10" stroke="white" strokeWidth="3" fill="none"/>
               </svg>
             </div>
-            HOT ROLLING FLAT
+            CAST BAR ENTRY INTO ROLLING MILL
           </button>
           <button className="process-button">
             <div className="process-button-icon">
@@ -114,7 +117,7 @@ const LandingPage = () => {
                 <circle cx="50" cy="50" r="15" stroke="white" strokeWidth="2" fill="none"/>
               </svg>
             </div>
-            COLD ROLLING
+            3-ROLL ROLLING MILL
           </button>
           <button className="process-button">
             <div className="process-button-icon">
@@ -125,7 +128,7 @@ const LandingPage = () => {
                 <line x1="50" y1="30" x2="50" y2="70" stroke="white" strokeWidth="3"/>
               </svg>
             </div>
-            NON FERROUS ROLLING
+            MECHANICAL ANALYSIS
           </button>
           <button className="process-button">
             <div className="process-button-icon">
@@ -136,7 +139,7 @@ const LandingPage = () => {
                 <line x1="75" y1="20" x2="75" y2="80" stroke="white" strokeWidth="3"/>
               </svg>
             </div>
-            PROCESSING
+            ELECTRICAL ANALYSIS
           </button>
           <button className="process-button">
             <div className="process-button-icon">
@@ -149,7 +152,7 @@ const LandingPage = () => {
                 <rect x="40" y="50" width="20" height="20" stroke="white" strokeWidth="3" fill="none"/>
               </svg>
             </div>
-            ENDLESS CASTING & ROLLING
+            RECOILING
           </button>
           <button className="process-button">
             <div className="process-button-icon">
@@ -161,7 +164,7 @@ const LandingPage = () => {
                 <path d="M70 60H80" stroke="white" strokeWidth="3"/>
               </svg>
             </div>
-            MINI MILLS
+            PRODUCT QUALITY ASSURANCE
           </button>
           <button className="process-button">
             <div className="process-button-icon">
@@ -171,7 +174,7 @@ const LandingPage = () => {
                 <path d="M50 30V70" stroke="white" strokeWidth="3"/>
               </svg>
             </div>
-            QUALITY CONTROL
+            SHIPPING
           </button>
         </div>
       </div>

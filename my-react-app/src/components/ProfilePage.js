@@ -11,7 +11,7 @@ const ProfilePage = () => {
     nickname: '',
     name: '',
     email: '',
-    company: ''
+    country: ''
   });
   const [savedUser, setSavedUser] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
@@ -39,7 +39,7 @@ const ProfilePage = () => {
           nickname: user.nickname || '',
           name: user.name || '',
           email: user.email || '',
-          company: ''
+          country: ''
         };
         setEditedUser(initialData);
         setSavedUser(initialData);
@@ -147,6 +147,10 @@ const ProfilePage = () => {
               <span className="info-value">{editedUser.nickname || user.nickname || 'Not set'}</span>
             </div>
             <div className="profile-info-item">
+              <span className="info-label">Country:</span>
+              <span className="info-value">{displayUser.country || 'Not specified'}</span>
+            </div>
+            <div className="profile-info-item">
               <span className="info-label">E-mail:</span>
               <span className="info-value">{editedUser.email || user.email}</span>
             </div>
@@ -181,10 +185,6 @@ const ProfilePage = () => {
             <div className="profile-info-item">
               <span className="info-label">Total predictions done:</span>
               <span className="info-value">{getTotalPredictions()}</span>
-            </div>
-            <div className="profile-info-item">
-              <span className="info-label">Industry/Company name:</span>
-              <span className="info-value">{displayUser.company || 'Not specified'}</span>
             </div>
             <button className="profile-button" onClick={handleEditToggle}>
               <FaEdit /> Edit Credentials
@@ -238,14 +238,14 @@ const ProfilePage = () => {
               />
             </div>
             <div className="edit-form-group">
-              <label htmlFor="company">Industry/Company name</label>
+              <label htmlFor="country">Country</label>
               <input
                 type="text"
-                id="company"
-                name="company"
-                value={editedUser.company || ''}
+                id="country"
+                name="country"
+                value={editedUser.country || ''}
                 onChange={handleInputChange}
-                placeholder="Enter your industry or company name"
+                placeholder="Enter your country"
               />
             </div>
             <div className="edit-modal-buttons">

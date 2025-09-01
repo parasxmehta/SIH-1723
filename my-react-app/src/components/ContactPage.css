@@ -1,8 +1,12 @@
 .contact-container {
   min-height: 100vh;
-  background-color: var(--background-light, #f9fafb);
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('C:\Users\Paras Mehta\OneDrive\Desktop\1723\my-react-app\public\background.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   padding: 80px 24px;
   font-family: 'Segoe UI', 'Roboto', sans-serif;
+  position: relative;
 }
 
 .contact-header {
@@ -14,13 +18,13 @@
 .contact-header h1 {
   font-size: 2.5rem;
   font-weight: 800;
-  color: var(--primary-dark, #084c8e);
+  color: white;
   margin-bottom: 16px;
 }
 
 .contact-header p {
   font-size: 1.1rem;
-  color: var(--text-light, #666);
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
 }
 

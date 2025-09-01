@@ -45,7 +45,7 @@ const AboutPage = () => {
         </p>
       </section>
 
-      <section className="about-section">
+      <section className="about-section card">
         <h2>Objective</h2>
         <p>
           The primary goal of this website is to leverage machine learning models to forecast
@@ -54,7 +54,7 @@ const AboutPage = () => {
         </p>
       </section>
 
-      <section className="about-section">
+      <section className="about-section card">
         <h2>How It Works</h2>
         <ul>
           <li>Input parameters like Casting Temperature, Rolling Speed, and Cooling Rate</li>
@@ -64,7 +64,7 @@ const AboutPage = () => {
       </section>
 
       {visitCount > 0 && (
-        <section className="about-section dynamic-content">
+        <section className="about-section card dynamic-content">
           <h2>Your Interaction</h2>
           <p>
             Welcome back! Thank you for visiting this site <strong>{visitCount} {visitCount === 1 ? 'time' : 'times'}</strong>.
