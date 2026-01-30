@@ -1,5 +1,5 @@
 // src/components/LandingPage.js
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import Footer from './footer';
@@ -17,11 +17,47 @@ const LandingPage = () => {
     }
   };
 
+  const heroRef = useRef(null);
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
+  const [scrollOffset, setScrollOffset] = useState(0);
+
+  useEffect(() => {
+    const elements = document.querySelectorAll('.reveal-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.2 });
+    elements.forEach((el) => observer.observe(el));
+    const onScroll = () => setScrollOffset(window.scrollY);
+    window.addEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      observer.disconnect();
+    };
+  }, []);
+
+  const handleMouseMove = (e) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const ry = (x - 0.5) * 8;
+    const rx = (0.5 - y) * 8;
+    setTilt({ rx, ry });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ rx: 0, ry: 0 });
+  };
+
   return (
     <div className="landing-container">
       {/* Hero Section */}
       <div className="hero-section">
-        <div className="hero-content">
+        <div className="hero-content reveal-on-scroll" style={{ transform: `translateY(${scrollOffset * -0.02}px)` }}>
           <h1>Wire Rod Predictor<br /></h1>
           <p className="hero-subtitle">
           "Revolutionize aluminum wire rod production with Intelligent Al and Machine Learning for monitoring, predicting, and fine-tuning key parameters for unmatched quality and efficiency."
@@ -30,17 +66,27 @@ const LandingPage = () => {
             Get Started
           </button>
         </div>
-        <div className="hero-image">
-          <img src="/final.png" alt="EliteBook Laptop" />
+        <div
+          className="hero-image reveal-on-scroll"
+          ref={heroRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{ transform: `translateY(${scrollOffset * 0.03}px)` }}
+        >
+          <img
+            src="/final.png"
+            alt="EliteBook Laptop"
+            style={{ transform: `perspective(800px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) scale(1.05)` }}
+          />
         </div>
       </div>
 
       {/* Process Buttons Section */}
-      <div className="process-buttons-section">
+      <div className="process-buttons-section reveal-on-scroll">
         <h2>ALUMINIUM MANUFACTURING PROCESS</h2>
         <p className="process-subtitle">EXPLORE OUR INDUSTRIAL PRODUCTION WORKFLOW</p>
         <div className="process-buttons-grid">
-          <button className="process-button">
+          <button className="process-button" onClick={() => navigate('/process/ingot-procurement')}>
             <div className="process-button-icon">
               <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20 70H80L70 30H30L20 70Z" stroke="white" strokeWidth="3" fill="none"/>
@@ -51,7 +97,7 @@ const LandingPage = () => {
             </div>
             ALUMINIUM INGOT PROCUREMENT
           </button>
-          <button className="process-button">
+          <button className="process-button" onClick={() => navigate('/process/melting')}>
             <div className="process-button-icon">
               <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M40 20V80" stroke="white" strokeWidth="3"/>
@@ -62,7 +108,7 @@ const LandingPage = () => {
             </div>
             MELTING
           </button>
-          <button className="process-button">
+          <button className="process-button" onClick={() => navigate('/process/holding')}>
             <div className="process-button-icon">
               <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M30 30C30 30 50 30 50 50C50 70 70 70 70 70" stroke="white" strokeWidth="3" fill="none"/>
@@ -71,7 +117,7 @@ const LandingPage = () => {
             </div>
             HOLDING
           </button>
-          <button className="process-button">
+          <button className="process-button" onClick={() => navigate('/process/chemical-analysis')}>
             <div className="process-button-icon">
               <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20 40H80" stroke="white" strokeWidth="3"/>
@@ -86,7 +132,7 @@ const LandingPage = () => {
             </div>
             CHEMICAL COMPOSITION ANALYSIS
           </button>
-          <button className="process-button">
+          <button className="process-button" onClick={() => navigate('/process/casting')}>
             <div className="process-button-icon">
               <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="30" stroke="white" strokeWidth="3" fill="none"/>
@@ -98,7 +144,7 @@ const LandingPage = () => {
             </div>
             CASTING
           </button>
-          <button className="process-button">
+          <button className="process-button" onClick={() => navigate('/process/cast-bar-entry')}>
             <div className="process-button-icon">
               <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="30" stroke="white" strokeWidth="3" fill="none"/>
@@ -108,7 +154,7 @@ const LandingPage = () => {
             </div>
             CAST BAR ENTRY INTO ROLLING MILL
           </button>
-          <button className="process-button">
+          <button className="process-button" onClick={() => navigate('/process/three-roll-mill')}>
             <div className="process-button-icon">
               <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="30" stroke="white" strokeWidth="3" fill="none"/>
@@ -119,7 +165,7 @@ const LandingPage = () => {
             </div>
             3-ROLL ROLLING MILL
           </button>
-          <button className="process-button">
+          <button className="process-button" onClick={() => navigate('/process/mechanical-analysis')}>
             <div className="process-button-icon">
               <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="30" cy="50" r="15" stroke="white" strokeWidth="3" fill="none"/>
@@ -130,7 +176,7 @@ const LandingPage = () => {
             </div>
             MECHANICAL ANALYSIS
           </button>
-          <button className="process-button">
+          <button className="process-button" onClick={() => navigate('/process/electrical-analysis')}>
             <div className="process-button-icon">
               <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <line x1="30" y1="20" x2="30" y2="80" stroke="white" strokeWidth="3"/>
@@ -141,7 +187,7 @@ const LandingPage = () => {
             </div>
             ELECTRICAL ANALYSIS
           </button>
-          <button className="process-button">
+          <button className="process-button" onClick={() => navigate('/process/recoiling')}>
             <div className="process-button-icon">
               <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20 40H80" stroke="white" strokeWidth="3"/>
@@ -154,7 +200,7 @@ const LandingPage = () => {
             </div>
             RECOILING
           </button>
-          <button className="process-button">
+          <button className="process-button" onClick={() => navigate('/process/quality-assurance')}>
             <div className="process-button-icon">
               <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M30 30H70V70H30V30Z" stroke="white" strokeWidth="3" fill="none"/>
@@ -166,7 +212,7 @@ const LandingPage = () => {
             </div>
             PRODUCT QUALITY ASSURANCE
           </button>
-          <button className="process-button">
+          <button className="process-button" onClick={() => navigate('/process/shipping')}>
             <div className="process-button-icon">
               <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="30" y="30" width="40" height="40" stroke="white" strokeWidth="3" fill="none"/>
@@ -180,7 +226,7 @@ const LandingPage = () => {
       </div>
 
       {/* Features Section */}
-      <div className="features-section">
+      <div className="features-section reveal-on-scroll">
         <h2>Optimize Your Production Process</h2>
         <div className="features-grid">
           <div className="feature-card">
@@ -202,7 +248,7 @@ const LandingPage = () => {
       </div>
 
       {/* Process Description */}
-      <div className="process-section">
+      <div className="process-section reveal-on-scroll">
         <h2>Advanced Wire Rod Production Analysis</h2>
         <div className="process-content">
           <div className="process-text">
@@ -229,7 +275,7 @@ const LandingPage = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="cta-section">
+      <div className="cta-section reveal-on-scroll">
         <h2>Ready to Optimize Your Wire Rod Production?</h2>
         <p>
           Join manufacturing leaders who are using AI to improve quality and consistency

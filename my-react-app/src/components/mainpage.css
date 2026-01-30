@@ -309,6 +309,10 @@
     margin-top: 4px;
     font-size: 0.9rem;
   }
+  .download-button {
+    display: block;
+    margin: 10px auto 0;
+  }
   
   /* Horizontal layout for results */
   .results-horizontal {

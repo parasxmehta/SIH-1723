@@ -71,6 +71,27 @@ const MainPage = () => {
     }
     setLoading(false);
   };
+  const handleDownloadCSV = () => {
+    if (!result) return;
+    const headers = ['casting_temp', 'rolling_speed', 'cooling_rate', 'uts', 'elongation', 'conductivity'];
+    const row = [
+      inputs.casting_temp,
+      inputs.rolling_speed,
+      inputs.cooling_rate,
+      result.uts,
+      result.elongation,
+      result.conductivity
+    ];
+    const csv = [headers.join(','), row.join(',')].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const ts = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+    a.download = `prediction-${ts}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
   
   // Effect to scroll to results when they appear
   useEffect(() => {
@@ -166,6 +187,7 @@ const MainPage = () => {
             <div className="results-header">
               <h3>Prediction Results</h3>
               <p className="results-subtitle">Based on your input parameters</p>
+              <button className="predict-button download-button" onClick={handleDownloadCSV}>Download CSV</button>
             </div>
 
             <div className="results-horizontal">

@@ -5,9 +5,9 @@ import pandas as pd
 
 # Create app
 app = Flask(__name__)
-CORS(app)  # allow all origins; adjust for production
+CORS(app)  
 
-# Path to this file’s parent (flask_backend/)
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_DIR = os.path.join(BASE_DIR, 'models')
 
@@ -25,8 +25,7 @@ try:
 except Exception:
     print("❌ Failed to load models/scaler:")
     traceback.print_exc()
-    # If you want to stop the app on load failure:
-    # raise
+    
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -46,7 +45,7 @@ def predict():
             'Cooling_Rate_C_s': [cooling_rate]
         })
 
-        # Apply the scaler (same order and names used during training)
+        
         input_scaled = scaler.transform(input_df)
 
         uts_pred = model_uts.predict(input_scaled)[0]
@@ -63,5 +62,5 @@ def predict():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    # Runs on http://127.0.0.1:5000/
+   
     app.run(debug=True)
